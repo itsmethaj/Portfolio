@@ -49,7 +49,7 @@ export default function BlogPage() {
             className="group cursor-pointer rounded-xl border border-neutral-200 bg-white p-5 shadow-sm transition-all duration-300 hover:border-red-500 hover:shadow-md flex flex-col justify-between"
           >
             <div>
-              <span className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400 block mb-2">
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-red-200 md:text-neutral-400 block mb-2">
                 {post.date}
               </span>
               <h2 className="text-xl font-bold tracking-tight text-neutral-900 group-hover:text-red-500 transition-colors duration-300 line-clamp-2">

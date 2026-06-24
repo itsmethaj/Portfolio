@@ -31,9 +31,15 @@ export default function Contact() {
       <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-start">
         <div>
           <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold leading-tight">
-            Let's Build
+            Let's
+            <span className="bg-gradient-to-r from-red-500 to-orange-600 bg-clip-text text-transparent">
+              Build
+            </span>
             <br />
-            Something Cool.
+            <span className="bg-gradient-to-r from-red-500 to-orange-600 bg-clip-text text-transparent">
+              Something
+            </span>{" "}
+            Cool.
           </h2>
 
           <p className="mt-6 max-w-lg text-sm sm:text-base lg:text-lg text-neutral-600 leading-7">
@@ -49,7 +55,8 @@ export default function Contact() {
               href={social.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative overflow-hidden rounded-3xl border border-neutral-200 bg-white p-5 sm:p-6 flex items-center justify-between transition-all duration-300 hover:-translate-y-1 hover:border-neutral-400 hover:shadow-lg">
+              className="group relative overflow-hidden rounded-3xl border border-neutral-200 bg-white p-5 sm:p-6 flex items-center justify-between transition-all duration-300 hover:-translate-y-1 hover:border-red-400 hover:shadow-lg"
+            >
               <div className="flex items-center gap-4">
                 <div className="text-neutral-800">{social.icon}</div>
                 <div>

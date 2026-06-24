@@ -1,6 +1,6 @@
 export default function About() {
   return (
-    <section className="w-full max-w-7xl px-4 sm:px-6 lg:px-12 py-8 sm:py-12 lg:py-20">
+    <section className="w-full px-4 sm:px-6 lg:px-10 py-8 sm:py-12 lg:py-20">
       <div className="mb-4 sm:mb-10 lg:mb-14">
         <h1 className="text-3xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-neutral-300 uppercase">
           ABOUT ME
@@ -19,7 +19,7 @@ export default function About() {
 
           <div className="space-y-2 tracking-tighter md:text-lg lg:text-2xl leading-relaxed text-neutral-600 font-base">
             <p>
-              I'm Mohammad Thaj, a 3rd year Computer Science student under
+              A 3rd year Computer Science student under
               Calicut University. I got into tech out of curiosity and ended up
               enjoying it far more than I expected.
             </p>
@@ -34,8 +34,8 @@ export default function About() {
             <p>
               Most of what I know comes from building things, breaking things,
               and figuring out how to fix them. I try to learn from everywhere I
-              can like from friends and sometimes by
-              exploring projects that catch my attention.
+              can like from friends and sometimes by exploring projects that
+              catch my attention.
             </p>
 
             <p>
