@@ -1,17 +1,37 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 # Portfolio
+
+A modern developer portfolio built to showcase my projects, skills, and journey in web development. The website combines a clean interface with smooth interactions to create an engaging and responsive experience across all devices.
+
+## Overview
+
+This portfolio serves as my professional space on the web, highlighting selected projects, technical skills, and ways to get in touch. It was designed with simplicity, performance, and usability in mind while maintaining a modern visual style.
+
+## Features
+
+- Clean and responsive design
+- Smooth page transitions and animations
+- Interactive project showcase
+- About, Projects, and Contact, Blogs sections
+- Optimized for desktop and mobile devices
+- Fast performance with Vite
+
+## Tech Stack
+
+- React
+- Vite
+- Tailwind CSS
+- JavaScript (ES6+)
+
+## Project Structure
+
+```
+Portfolio/
+├── public/
+├── src/
+│   ├── components/
+│   ├── assets/
+│   ├── pages/
+│   └── App.jsx
+├── package.json
+└── vite.config.js
+```
