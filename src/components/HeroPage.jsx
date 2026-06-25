@@ -69,7 +69,7 @@ export default function HeroPage() {
                   </p>
                 </div>
                 <a
-                  href="src/assets/Mohammad Thaj_resume (1).pdf"
+                  href="https://drive.google.com/file/d/1j36652wEXIcnEW2BaXyQrxQq-P88XxIg/view?usp=drive_link"
                   download="Mohammad_Thaj_Resume.pdf"
                   className="w-full flex items-center justify-center gap-2 bg-neutral-900 hover:bg-red-500 text-white font-medium text-xs py-2.5 sm:py-3 px-4 rounded transition-all duration-300 shadow"
                 >
