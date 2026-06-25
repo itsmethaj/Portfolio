@@ -52,26 +52,18 @@ export default function BlogPage() {
             onClick={() => setSelectedPost(post)}
             className="group relative overflow-hidden w-full min-h-[220px] sm:min-h-[250px] md:min-h-[270px] lg:min-h-[300px] rounded-2xl sm:rounded-3xl border border-neutral-200 bg-white p-4 sm:p-5 md:p-6 lg:p-7 flex flex-col text-left transition-all duration-500 hover:-translate-y-1 sm:hover:-translate-y-2 hover:border-neutral-400 hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] before:absolute before:left-0 before:top-0 before:h-1 before:w-0 before:bg-red-400 before:transition-all before:duration-500 hover:before:w-full"
           >
-            {/* Left Accent Line */}
             <div className="absolute left-4 sm:left-5 top-0 h-full w-px bg-red-200" />
 
             <div className="relative z-10 pl-3 sm:pl-4 h-full flex flex-col">
-              {/* Date */}
               <span className="inline-flex items-center rounded-full bg-neutral-100 px-2.5 py-1 text-[9px] sm:text-[10px] md:text-[11px] font-medium uppercase tracking-widest text-neutral-600 w-fit">
                 {post.date}
               </span>
-
-              {/* Title */}
               <h2 className="mt-3 text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-neutral-900 transition-colors duration-300 group-hover:text-red-500 line-clamp-2">
                 {post.title}
               </h2>
-
-              {/* Description */}
               <p className="mt-3 text-xs sm:text-sm md:text-[15px] leading-5 sm:leading-6 md:leading-7 text-neutral-600 line-clamp-3">
                 {post.content}
               </p>
-
-              {/* Footer */}
               <div className="mt-auto flex items-center gap-2 text-xs sm:text-sm md:text-base font-semibold text-neutral-900  group-hover:text-red-500 ">
                 Read Article
                 <span className="inline-block transition-transform duration-300 group-hover:translate-x-2">
@@ -83,8 +75,6 @@ export default function BlogPage() {
                 </span>
               </div>
             </div>
-
-            {/* Hover Gradient */}
             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-transparent via-transparent to-neutral-50" />
           </button>
         ))}
