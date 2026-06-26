@@ -7,7 +7,7 @@ export default function BlogPage() {
 
   if (selectedPost) {
     return (
-      <section className="w-full max-w-5xl mx-auto h-full flex flex-col px-4 sm:px-6 lg:px-10 py-8 sm:py-12 animate-fadeIn">
+      <section className="w-full px-4 sm:px-6 lg:px-10 py-8 sm:py-12 animate-fadeIn">
         <button
           onClick={() => setSelectedPost(null)}
           className="self-start mb-8 rounded-xl border border-neutral-200 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-neutral-500 transition-all duration-300 hover:border-red-400 hover:text-red-500"
