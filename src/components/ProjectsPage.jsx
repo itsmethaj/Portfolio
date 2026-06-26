@@ -22,11 +22,11 @@ const projects = [
     link: "https://drive.google.com/file/d/1pW7xIoTICTCj0ZfJt-rcK1XjAqawtC9r/view",
   },
   {
-    title: "Portfolio",
+    title: "Notebookfolio",
     category: "React Website",
     description:
-      "My personal portfolio built using React, Vite, and Tailwind CSS, showcasing projects, skills, and development journey.",
-    link: "https://github.com/itsmethaj/portfolio",
+      "My first attempt at building a personal portfolio. Created for fun while exploring React and Vite, and experimenting with creative Notebook Inspired UI design.",
+    link: "https://notebookfolio.netlify.app/",
   },
   {
     title: "Task Tracker",
@@ -41,6 +41,13 @@ const projects = [
     description:
       "A privacy-focused blood donor platform with donor search, volunteer coordination, and administration tools.",
     link: "https://thudipp.netlify.app/",
+  },
+  {
+    title: "Portfolio",
+    category: "Portfolio Website",
+    description:
+      "My professional portfolio showcasing projects, technical expertise, and continuous learning. Developed with React, Vite, and Tailwind CSS, focusing on clean design and a seamless user experience.",
+    link: "itsmethaj.netlify.app/",
   },
 ];
 
