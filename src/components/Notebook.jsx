@@ -31,7 +31,6 @@ export default function Notebook() {
     const handleWheel = (e) => {
       if (Math.abs(e.deltaY) < 20 || isScrolling.current) return;
 
-      // Projects page scrolling
       const scrollablePages = {
         projects: projectsRef,
         blog: blogRef,
