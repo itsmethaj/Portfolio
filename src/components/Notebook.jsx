@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import HeroPage from "./HeroPage";
 import AboutPage from "./AboutPage";
 import ProjectsPage from "./ProjectsPage";
@@ -12,30 +12,103 @@ export default function Notebook() {
   const [page, setPage] = useState("hero");
   const [selectedBlogId, setSelectedBlogId] = useState("starting");
 
-  const pages = {
-    hero: <HeroPage />,
-    about: <AboutPage />,
-    projects: <ProjectsPage />,
-    blog: (
-      <BlogPage selectedId={selectedBlogId} onNavigate={setSelectedBlogId} />
-    ),
-    contact: <ContactPage />,
+  const isScrolling = useRef(false);
+  const projectsRef = useRef(null);
+  const blogRef = useRef(null);
+
+  const pagesOrder = ["hero", "about", "projects", "blog", "contact"];
+  const currentIndex = pagesOrder.indexOf(page);
+
+  const navigatePage = (direction) => {
+    const nextIndex = currentIndex + direction;
+
+    if (nextIndex >= 0 && nextIndex < pagesOrder.length) {
+      setPage(pagesOrder[nextIndex]);
+    }
   };
 
+  useEffect(() => {
+    const handleWheel = (e) => {
+      if (Math.abs(e.deltaY) < 20 || isScrolling.current) return;
+
+      // Projects page scrolling
+      const scrollablePages = {
+        projects: projectsRef,
+        blog: blogRef,
+      };
+
+      const activeRef = scrollablePages[page];
+
+      if (activeRef?.current) {
+        const el = activeRef.current;
+
+        const atTop = el.scrollTop <= 0;
+        const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 2;
+
+        if ((e.deltaY > 0 && !atBottom) || (e.deltaY < 0 && !atTop)) {
+          return;
+        }
+      }
+
+      isScrolling.current = true;
+
+      navigatePage(e.deltaY > 0 ? 1 : -1);
+
+      setTimeout(() => {
+        isScrolling.current = false;
+      }, 800);
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: true });
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, [page]);
+
   return (
-    <div className="mx-auto max-w-[96svw] flex gap-3 p-3">
-      <div className="relative min-h-[96svh] flex-1">
+    <div className="mx-auto max-w-[96svw] h-[96svh] flex gap-3 p-3 select-none">
+      <div className="relative h-full flex-1 min-w-0">
         <div className="absolute top-1 bottom-1 right-[-4px] w-2 rounded-r-xl border bg-[#f8f5eb]" />
         <div className="absolute top-2 bottom-2 right-[-8px] w-2 rounded-r-xl border bg-[#f8f5eb]" />
         <div className="absolute top-3 bottom-3 right-[-12px] w-2 rounded-r-xl border bg-[#f8f5eb]" />
         <div className="absolute top-4 bottom-4 right-[-16px] w-2 rounded-r-xl border bg-[#f8f5eb]" />
         <div className="absolute top-5 bottom-5 right-[-20px] w-2 rounded-r-xl border bg-[#f8f5eb]" />
-        <div className="relative z-10 min-h-[96svh] rounded-xl border bg-white p-0 mb-0 shadow-lg">
-          {pages[page]}
+
+        <div className="relative z-10 h-full rounded-xl border bg-white shadow-lg overflow-hidden">
+          <div
+            className="flex h-full w-[500%] transition-transform duration-500 ease-in-out"
+            style={{ transform: `translateX(-${currentIndex * 20}%)` }}
+          >
+            <div className="w-1/5 h-full overflow-hidden flex-shrink-0">
+              <HeroPage />
+            </div>
+
+            <div className="w-1/5 h-full overflow-hidden flex-shrink-0">
+              <AboutPage />
+            </div>
+
+            <div className="w-1/5 h-full overflow-hidden flex-shrink-0">
+              <ProjectsPage scrollRef={projectsRef} />
+            </div>
+
+            <div className="w-1/5 h-full overflow-hidden flex-shrink-0">
+              <BlogPage
+                selectedId={selectedBlogId}
+                onNavigate={setSelectedBlogId}
+                scrollRef={blogRef}
+              />
+            </div>
+
+            <div className="w-1/5 h-full overflow-hidden flex-shrink-0">
+              <ContactPage />
+            </div>
+          </div>
         </div>
       </div>
+
       <div className="flex flex-col gap-2 sm:gap-3 md:gap-5 pt-6 sm:pt-8 md:pt-10">
-        {Object.keys(pages).map((key, index) => (
+        {pagesOrder.map((key, index) => (
           <button
             key={key}
             onClick={() => setPage(key)}
