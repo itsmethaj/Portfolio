@@ -62,7 +62,7 @@ export default function ProjectsPage({ scrollRef }) {
       </div>
       <div
         ref={scrollRef}
-        className="flex-1 overflow-y-auto pr-2 custom-scrollbar scroll-smooth "
+        className="flex-1 overflow-y-auto pr-2 custom-scrollbar scroll-smooth touch-pan-y "
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-5 w-full pb-40">
           {projects.map((project, index) => (
@@ -72,7 +72,7 @@ export default function ProjectsPage({ scrollRef }) {
               target="_blank"
               rel="noopener noreferrer"
               className="group relative overflow-hidden w-full min-h-[220px] sm:min-h-[250px] md:min-h-[270px] lg:min-h-[274px] mt-5 rounded-2xl sm:rounded-3xl border border-neutral-200 bg-white p-4 sm:p-5 md:p-6 lg:p-7 flex flex-col transition-all duration-500 hover:-translate-y-2 hover:border-neutral-400 hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] before:absolute before:left-0 before:top-0 before:h-1 before:w-0 before:bg-red-400 before:transition-all before:duration-500 hover:before:w-full"
-              >
+            >
               <div className="absolute left-4 sm:left-5 top-0 h-full w-px bg-red-200" />
 
               <span className="absolute right-3 top-3 sm:right-4 sm:top-4 text-4xl sm:text-5xl md:text-6xl font-black text-red-200 md:text-neutral-100 select-none transition-colors duration-500 group-hover:text-red-500">

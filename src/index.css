@@ -34,3 +34,11 @@ h6 {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #a3a3a3;
 }
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
+#root {
+  overscroll-behavior: none;
+} 
