@@ -20,57 +20,62 @@ const touchStartY = useRef(0);
 const touchEndY = useRef(0);
   const pagesOrder = ["hero", "about", "projects", "blog", "contact"];
   const currentIndex = pagesOrder.indexOf(page);
+const navigatePage = (direction) => {
+  const nextIndex = currentIndex + direction;
 
-  const navigatePage = (direction) => {
-    const nextIndex = currentIndex + direction;
+  if (nextIndex >= 0 && nextIndex < pagesOrder.length) {
+    setPage(pagesOrder[nextIndex]);
+  }
+};
 
-    if (nextIndex >= 0 && nextIndex < pagesOrder.length) {
-      setPage(pagesOrder[nextIndex]);
-    }
+const shouldStayOnCurrentPage = (direction) => {
+  if (page === "blog" && selectedPost) {
+    return true;
+  }
+
+  const scrollablePages = {
+    projects: projectsRef,
+    blog: blogRef,
   };
 
-  useEffect(() => {
-    const handleWheel = (e) => {
-      if (Math.abs(e.deltaY) < 20 || isScrolling.current) return;
-      // Don't change notebook pages while reading a blog post
-      if (page === "blog" && selectedPost) {
-        return;
-      }
-      const scrollablePages = {
-        projects: projectsRef,
-        blog: blogRef,
-      };
+  const activeRef = scrollablePages[page];
 
-      const activeRef = scrollablePages[page];
+  if (!activeRef?.current) return false;
 
-      if (activeRef?.current) {
-        const el = activeRef.current;
+  const el = activeRef.current;
 
-        const atTop = el.scrollTop <= 0;
-        const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 2;
+  const threshold = 20;
 
-        if ((e.deltaY > 0 && !atBottom) || (e.deltaY < 0 && !atTop)) {
-          return;
-        }
-      }
+  const atTop = el.scrollTop <= threshold;
+  const atBottom =
+    el.scrollTop + el.clientHeight >= el.scrollHeight - threshold;
 
-      isScrolling.current = true;
+  return (direction > 0 && !atBottom) || (direction < 0 && !atTop);
+};
 
-      navigatePage(e.deltaY > 0 ? 1 : -1);
+useEffect(() => {
+  const handleWheel = (e) => {
+    if (Math.abs(e.deltaY) < 20 || isScrolling.current) return;
 
-      setTimeout(() => {
-        isScrolling.current = false;
-      }, 800);
-    };
+    const direction = e.deltaY > 0 ? 1 : -1;
 
-    window.addEventListener("wheel", handleWheel, { passive: true });
+    if (shouldStayOnCurrentPage(direction)) return;
 
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-    };
-  }, [page, selectedPost]);
+    isScrolling.current = true;
 
+    navigatePage(direction);
 
+    setTimeout(() => {
+      isScrolling.current = false;
+    }, 800);
+  };
+
+  window.addEventListener("wheel", handleWheel, { passive: true });
+
+  return () => {
+    window.removeEventListener("wheel", handleWheel);
+  };
+}, [page, selectedPost]);
 
 useEffect(() => {
   const handleTouchStart = (e) => {
@@ -84,34 +89,15 @@ useEffect(() => {
   const handleTouchEnd = () => {
     const diff = touchStartY.current - touchEndY.current;
 
-    // Ignore small swipes
     if (Math.abs(diff) < 60 || isScrolling.current) return;
-    // Don't leave the blog post with swipe
-    if (page === "blog" && selectedPost) {
-      return;
-    }
-    const scrollablePages = {
-      projects: projectsRef,
-      blog: blogRef,
-    };
 
-    const activeRef = scrollablePages[page];
+    const direction = diff > 0 ? 1 : -1;
 
-    if (activeRef?.current) {
-      const el = activeRef.current;
-
-      const atTop = el.scrollTop <= 20;
-      const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 20;
-
-      // Let Projects/Blog scroll normally until the end
-      if ((diff > 0 && !atBottom) || (diff < 0 && !atTop)) {
-        return;
-      }
-    }
+    if (shouldStayOnCurrentPage(direction)) return;
 
     isScrolling.current = true;
 
-    navigatePage(diff > 0 ? 1 : -1);
+    navigatePage(direction);
 
     setTimeout(() => {
       isScrolling.current = false;
@@ -125,15 +111,18 @@ useEffect(() => {
   window.addEventListener("touchmove", handleTouchMove, {
     passive: true,
   });
-
   window.addEventListener("touchend", handleTouchEnd);
-
   return () => {
     window.removeEventListener("touchstart", handleTouchStart);
     window.removeEventListener("touchmove", handleTouchMove);
     window.removeEventListener("touchend", handleTouchEnd);
   };
 }, [page, selectedPost]);
+useEffect(() => {
+  if (page !== "blog") {
+    setSelectedPost(null);
+  }
+}, [page]);
   return (
     <div className="min-h-dvh flex items-center justify-center">
       <div className="w-full max-w-[96svw] h-[96svh] flex gap-3 p-1  select-none">
