@@ -3,6 +3,7 @@ import HeroPage from "./HeroPage";
 import AboutPage from "./AboutPage";
 import ProjectsPage from "./ProjectsPage";
 import BlogPage from "./BlogPage";
+import BlogPost from "./BlogPost";
 import ContactPage from "./ContactPage";
 
 const positions = ["-8px", "-5px", "-2px", "2px", "8px"];
@@ -10,7 +11,7 @@ const activePosition = "-10.5px";
 
 export default function Notebook() {
   const [page, setPage] = useState("hero");
-  const [selectedBlogId, setSelectedBlogId] = useState("starting");
+  const [selectedPost, setSelectedPost] = useState(null);
 
   const isScrolling = useRef(false);
   const projectsRef = useRef(null);
@@ -31,7 +32,10 @@ const touchEndY = useRef(0);
   useEffect(() => {
     const handleWheel = (e) => {
       if (Math.abs(e.deltaY) < 20 || isScrolling.current) return;
-
+      // Don't change notebook pages while reading a blog post
+      if (page === "blog" && selectedPost) {
+        return;
+      }
       const scrollablePages = {
         projects: projectsRef,
         blog: blogRef,
@@ -64,7 +68,10 @@ const touchEndY = useRef(0);
     return () => {
       window.removeEventListener("wheel", handleWheel);
     };
-  }, [page]);
+  }, [page, selectedPost]);
+
+
+
 useEffect(() => {
   const handleTouchStart = (e) => {
     touchStartY.current = e.touches[0].clientY;
@@ -79,7 +86,10 @@ useEffect(() => {
 
     // Ignore small swipes
     if (Math.abs(diff) < 60 || isScrolling.current) return;
-
+    // Don't leave the blog post with swipe
+    if (page === "blog" && selectedPost) {
+      return;
+    }
     const scrollablePages = {
       projects: projectsRef,
       blog: blogRef,
@@ -123,7 +133,7 @@ useEffect(() => {
     window.removeEventListener("touchmove", handleTouchMove);
     window.removeEventListener("touchend", handleTouchEnd);
   };
-}, [page]);
+}, [page, selectedPost]);
   return (
     <div className="min-h-dvh flex items-center justify-center">
       <div className="w-full max-w-[96svw] h-[96svh] flex gap-3 p-1  select-none">
@@ -152,11 +162,15 @@ useEffect(() => {
               </div>
 
               <div className="w-1/5 h-full overflow-hidden flex-shrink-0">
-                <BlogPage
-                  selectedId={selectedBlogId}
-                  onNavigate={setSelectedBlogId}
-                  scrollRef={blogRef}
-                />
+                {selectedPost ? (
+                  <BlogPost
+                    post={selectedPost}
+                    onBack={() => setSelectedPost(null)}
+                    scrollRef={blogRef}
+                  />
+                ) : (
+                  <BlogPage scrollRef={blogRef} onOpenPost={setSelectedPost} />
+                )}
               </div>
 
               <div className="w-1/5 h-full overflow-hidden flex-shrink-0">
