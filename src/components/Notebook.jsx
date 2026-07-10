@@ -53,11 +53,20 @@ const shouldStayOnCurrentPage = (direction) => {
   return (direction > 0 && !atBottom) || (direction < 0 && !atTop);
 };
 
+const wheelDelta = useRef(0);
+
 useEffect(() => {
   const handleWheel = (e) => {
-    if (Math.abs(e.deltaY) < 20 || isScrolling.current) return;
+    if (isScrolling.current) return;
 
-    const direction = e.deltaY > 0 ? 1 : -1;
+    wheelDelta.current += e.deltaY;
+
+    // Adjust this value to control sensitivity
+    if (Math.abs(wheelDelta.current) < 100) return;
+
+    const direction = wheelDelta.current > 0 ? 1 : -1;
+
+    wheelDelta.current = 0;
 
     if (shouldStayOnCurrentPage(direction)) return;
 
@@ -67,7 +76,7 @@ useEffect(() => {
 
     setTimeout(() => {
       isScrolling.current = false;
-    }, 800);
+    }, 700);
   };
 
   window.addEventListener("wheel", handleWheel, { passive: true });
@@ -134,8 +143,7 @@ useEffect(() => {
           <div className="absolute top-5 bottom-5 right-[-20px] w-2 rounded-r-xl border bg-[#f8f5eb]" />
 
           <div className="relative z-10 h-full rounded-xl border bg-white shadow-lg overflow-hidden">
-            <div
-              className="flex h-full w-[500%] transition-transform duration-500 ease-in-out"
+            <div className="flex h-full w-[500%] will-change-transform transform-gpu transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
               style={{ transform: `translateX(-${currentIndex * 20}%)` }}
             >
               <div className="w-1/5 h-full overflow-hidden flex-shrink-0">
@@ -174,14 +182,7 @@ useEffect(() => {
             <button
               key={key}
               onClick={() => setPage(key)}
-              className={`
-              px-1 py-3
-              sm:px-4 sm:py-2.5
-              md:px-6 md:py-3
-              text-xs sm:text-sm md:text-base
-              capitalize
-              transition-all duration-300
-              rounded-tr-lg rounded-br-lg
+              className={`px-1 py-3 sm:px-4 sm:py-2.5 md:px-6 md:py-3 text-xs sm:text-sm md:text-base capitalize transition-all duration-300 rounded-tr-lg rounded-br-lg
               ${
                 page === key
                   ? "z-20 bg-white text-red-500 shadow-lg"
