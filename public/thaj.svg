@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+
+  <!-- Background -->
+  <rect width="128" height="128" rx="28" fill="#ffffff"/>
+
+  <!-- M -->
+  <path
+    d="M18 96V34
+       L42 70
+       L66 34
+       V96"
+    fill="none"
+    stroke="#111111"
+    stroke-width="12"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+
+  <!-- Red Accent -->
+  <path
+    d="M42 70L66 34V96"
+    fill="none"
+    stroke="#E53935"
+    stroke-width="12"
+    stroke-linecap="round"
+    stroke-linejoin="round"/>
+
+  <!-- T -->
+  <path
+    d="M84 36H116"
+    stroke="#E53935"
+    stroke-width="12"
+    stroke-linecap="round"/>
+
+  <path
+    d="M100 36V96"
+    stroke="#111111"
+    stroke-width="12"
+    stroke-linecap="round"/>
+
+</svg>

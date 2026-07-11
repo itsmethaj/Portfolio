@@ -42,3 +42,20 @@ body {
 #root {
   overscroll-behavior: none;
 } 
+html,
+body {
+  margin: 0;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+#root {
+  height: 100dvh;
+  overflow: hidden;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
